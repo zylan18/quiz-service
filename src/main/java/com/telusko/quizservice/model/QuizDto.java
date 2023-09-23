@@ -7,4 +7,5 @@ public class QuizDto {
 	String categoryName;
 	Integer numQuestions;
 	String title;
+	Integer id;
 }
