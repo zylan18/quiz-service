@@ -14,6 +14,7 @@ import com.telusko.quizservice.feign.QuizInterface;
 import com.telusko.quizservice.model.Question;
 import com.telusko.quizservice.model.QuestionWrapper;
 import com.telusko.quizservice.model.Quiz;
+import com.telusko.quizservice.model.QuizDto;
 import com.telusko.quizservice.model.Response;
 
 @Service
@@ -32,7 +33,7 @@ public class QuizService {
 		
 		Quiz quiz=new Quiz();
 		quiz.setTitle(title);
-		
+		quiz.setCategory(category);
 		quiz.setQuestionsIds(questions);
 		quizDao.save(quiz);
 		return new ResponseEntity<>("Success",HttpStatus.CREATED);
@@ -50,6 +51,20 @@ public class QuizService {
 		ResponseEntity<Integer>score= quizInterface.getScore(responses);
 		return score;
 		
+	}
+
+	public ResponseEntity<List<QuizDto>> getAllQuiz() {
+		List<Quiz> quizList=quizDao.findAll();
+		List<QuizDto> responseList=new ArrayList<>();
+		for(Quiz quiz:quizList) {
+			QuizDto quizDto=new QuizDto();
+			quizDto.setCategoryName(quiz.getCategory());
+			quizDto.setTitle(quiz.getTitle());
+			quizDto.setNumQuestions(quiz.getQuestionsIds().size());
+			quizDto.setId(quiz.getId());
+			responseList.add(quizDto);
+		}
+		return new ResponseEntity<List<QuizDto>>(responseList,HttpStatus.OK);
 	}
 	
 	

@@ -21,7 +21,6 @@ import com.telusko.quizservice.service.QuizService;
 
 @RestController
 @RequestMapping("quiz")
-@CrossOrigin
 public class QuizController {
 	@Autowired
 	QuizService quizService;
@@ -39,5 +38,9 @@ public class QuizController {
 	@PostMapping("submit/{id}")
 	public ResponseEntity<Integer>submitQuiz(@PathVariable Integer id, @RequestBody List<Response>response){
 		return quizService.calculateResult(id,response);
+	}
+	@GetMapping("/getAll")
+	public ResponseEntity<List<QuizDto>> getAllQuiz(){
+		return quizService.getAllQuiz();
 	}
 }
