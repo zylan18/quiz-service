@@ -47,10 +47,9 @@ public class QuizService {
 		return (questions);
 	}
 
-	public ResponseEntity<Integer> calculateResult(Integer id, List<Response> responses) {
+	public ResponseEntity<Integer> calculateResult(List<Response> responses) {
 		ResponseEntity<Integer>score= quizInterface.getScore(responses);
 		return score;
-		
 	}
 
 	public ResponseEntity<List<QuizDto>> getAllQuiz() {
